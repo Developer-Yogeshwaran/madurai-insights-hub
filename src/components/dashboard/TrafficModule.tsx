@@ -10,9 +10,10 @@ export default function TrafficModule() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 mb-2">
+      <div className="module-header module-header-traffic mb-2">
+        <span className="module-badge" style={{background: 'hsl(200 90% 50%)'}} />
         <Car className="w-5 h-5 neon-text-blue" />
-        <h2 className="text-lg font-semibold">Traffic Analysis</h2>
+        <h2>Traffic Analysis</h2>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

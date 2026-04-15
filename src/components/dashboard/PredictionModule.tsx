@@ -5,9 +5,10 @@ import { Brain, TrendingUp } from 'lucide-react';
 export default function PredictionModule() {
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 mb-2">
-        <Brain className="w-5 h-5 neon-text-blue" />
-        <h2 className="text-lg font-semibold">AI Predictions</h2>
+      <div className="module-header module-header-predictions mb-2">
+        <span className="module-badge" style={{background: 'hsl(270 80% 60%)'}} />
+        <Brain className="w-5 h-5 neon-text-purple" />
+        <h2>AI Predictions</h2>
         <span className="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-primary/10 neon-text-green border border-primary/20">
           Random Forest + Linear Regression
         </span>

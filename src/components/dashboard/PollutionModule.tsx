@@ -20,9 +20,10 @@ export default function PollutionModule() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-2 mb-2">
-        <Wind className="w-5 h-5 neon-text-green" />
-        <h2 className="text-lg font-semibold">Pollution Monitoring</h2>
+      <div className="module-header module-header-pollution mb-2">
+        <span className="module-badge" style={{background: 'hsl(0 85% 55%)'}} />
+        <Wind className="w-5 h-5 neon-text-red" />
+        <h2>Pollution Monitoring</h2>
         {alertCount > 0 && (
           <span className="ml-auto flex items-center gap-1 text-xs neon-text-red">
             <AlertCircle className="w-3 h-3" /> {alertCount} areas above safe limit
