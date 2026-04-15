@@ -1,6 +1,9 @@
 import { emitRealtimeUpdate, emitNotification } from './utils';
 
-export function startWebsocketClient(url = 'http://localhost:4000') {
+// Use Vite env `VITE_WS_URL` when deployed; fallback to localhost for dev
+const DEFAULT_WS_URL = (typeof import.meta !== 'undefined' && (import.meta.env as any)?.VITE_WS_URL) || 'http://localhost:4000';
+
+export function startWebsocketClient(url = DEFAULT_WS_URL) {
   // dynamic import to avoid SSR/type issues
   (async () => {
     try {
