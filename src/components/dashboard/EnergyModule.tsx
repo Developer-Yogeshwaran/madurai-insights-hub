@@ -23,7 +23,8 @@ export default function EnergyModule() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Monthly Consumption by Sector</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={energyData}>
@@ -39,7 +40,8 @@ export default function EnergyModule() {
           </ResponsiveContainer>
         </div>
 
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Daily Load vs Solar Generation</h3>
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={dailyEnergy}>

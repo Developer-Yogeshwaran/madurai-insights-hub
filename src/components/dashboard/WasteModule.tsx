@@ -73,7 +73,8 @@ export default function WasteModule() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Smart Bin Status</h3>
           <div className="space-y-2 max-h-[220px] overflow-y-auto scrollbar-thin">
             {wasteBins.sort((a, b) => b.fill - a.fill).map(bin => {
@@ -105,7 +106,8 @@ export default function WasteModule() {
           </div>
         </div>
 
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Area Cleanliness Score</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={cleanlinessScores} layout="vertical">

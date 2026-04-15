@@ -51,8 +51,9 @@ export default function Header() {
   return (
     <header className="glass-card px-6 py-4 flex items-center justify-between">
       <div className="flex items-center gap-4">
-        <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center neon-glow-green" style={{boxShadow: '0 6px 24px rgba(16,24,40,0.6)'}}>
-          <Activity className="w-6 h-6 neon-text-green" />
+        <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center neon-glow-green header-icon-wrap" style={{boxShadow: '0 6px 24px rgba(16,24,40,0.6)'}}>
+          <Activity className="w-6 h-6 neon-text-green sparkle" />
+          <div className="header-ring" />
         </div>
         <div className="leading-tight">
           <div className="flex items-center gap-3">
@@ -81,7 +82,6 @@ export default function Header() {
             <button onClick={toggleTheme} title="Toggle theme" className="p-2 rounded-lg bg-muted/40 hover:bg-muted interactive">
               <SunMoon className="w-4 h-4 text-muted-foreground" />
             </button>
-
             <div className="relative">
               <button onClick={() => { setNotifOpen((v) => !v); setNotifCount(0); }} className="relative p-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors">
                 <Bell className="w-4 h-4 text-muted-foreground" />

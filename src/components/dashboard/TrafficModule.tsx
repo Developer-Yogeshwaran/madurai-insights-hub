@@ -23,7 +23,8 @@ export default function TrafficModule() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Hourly Traffic Volume</h3>
           <ResponsiveContainer width="100%" height={220}>
             <AreaChart data={trafficData}>
@@ -42,7 +43,8 @@ export default function TrafficModule() {
           </ResponsiveContainer>
         </div>
 
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Average Speed & Congestion</h3>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={trafficData}>

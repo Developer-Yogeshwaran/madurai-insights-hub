@@ -38,7 +38,8 @@ export default function PollutionModule() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">AQI by Area</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={pollutionData} layout="vertical">
@@ -55,7 +56,8 @@ export default function PollutionModule() {
           </ResponsiveContainer>
         </div>
 
-        <div className="glass-card p-4">
+        <div className="fancy-card p-4">
+          <div className="glass-gradient-outline" />
           <h3 className="text-sm font-medium text-muted-foreground mb-3">Monthly AQI Trend</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={monthlyPollution}>

@@ -3,6 +3,7 @@ import { ArrowRight, MapPin } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, CircleMarker, useMap } from 'react-leaflet';
 import { pollutionData, wasteBins, predictionData } from '../data/cityData';
+import { predictSites } from '../ml/predictor';
 import React from 'react';
 import { emitRealtimeUpdate, emitNotification } from '../lib/utils';
 
@@ -154,6 +155,18 @@ export default function MapPage() {
                     const a = document.createElement('a');
                     a.href = url; a.download = 'bins.csv'; a.click(); URL.revokeObjectURL(url);
                   }}>Export Bins CSV</button>
+                  <button className="nav-pill" onClick={async () => {
+                    try {
+                      (window as any).dispatchEvent(new CustomEvent('show-toast', { detail: { message: 'Running predictions (client)...' } }));
+                      const results = await predictSites(sites);
+                      const next = sites.map((s, i) => ({ ...s, prediction: { ...s.prediction, predictedAqi: results[i].predictedAqi, confidence: results[i].confidence } }));
+                      setSites(next);
+                      (window as any).dispatchEvent(new CustomEvent('show-toast', { detail: { message: 'Predictions complete' } }));
+                    } catch (err) {
+                      console.error(err);
+                      (window as any).dispatchEvent(new CustomEvent('show-toast', { detail: { message: 'Prediction failed' } }));
+                    }
+                  }}>Run Predictions (TFJS)</button>
                 </div>
               </div>
             </div>
