@@ -23,7 +23,7 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState<TabId>('traffic');
 
   return (
-    <div className="min-h-screen gradient-bg">
+    <div id="app-root" className="min-h-screen gradient-bg">
       <div className="max-w-7xl mx-auto p-4 space-y-4">
         <Header />
         <section className="dashboard-hero glass-card-hover">
@@ -38,6 +38,21 @@ export default function Index() {
               <StatCard title="Active Alerts" value={3} subtitle="Critical & Warnings" icon={Brain} glowColor="red" />
               <StatCard title="Avg AQI" value={78} subtitle="Last hour" icon={Wind} glowColor="green" />
               <StatCard title="Vehicles (est)" value={12480} subtitle="Current" icon={Car} glowColor="blue" />
+            </div>
+            <div className="flex items-center gap-2 ml-4">
+              <button
+                className="nav-pill"
+                onClick={async () => {
+                  try {
+                    // generate PDF of the main content area
+                    // main content wrapper is the page container: use id 'app-root'
+                    await import('../lib/report').then((m) => m.generatePdfReport('app-root'));
+                  } catch (err) {
+                    console.error('PDF generation failed', err);
+                    alert('PDF generation failed: ' + String(err));
+                  }
+                }}
+              >Export PDF Report</button>
             </div>
           </div>
         </section>
