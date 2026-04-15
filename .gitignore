@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.vercel
+.env*.local
+
+# ML artifacts
+server/ml/models/
+server/ml/training.csv
