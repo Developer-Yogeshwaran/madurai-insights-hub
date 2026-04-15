@@ -2,10 +2,51 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, CircleMarker, useMap } from 'react-leaflet';
+import 'leaflet.markercluster/dist/leaflet.markercluster.css';
 import { pollutionData, wasteBins, predictionData } from '../data/cityData';
 import { predictSites } from '../ml/predictor';
 import React from 'react';
 import { emitRealtimeUpdate, emitNotification } from '../lib/utils';
+import L from 'leaflet';
+
+function ClusterLayer({ sites }: { sites: any[] }) {
+  const map = useMap();
+  const layerRef = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        // dynamically import plugin (plugin augments L)
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        await import('leaflet.markercluster');
+
+        if (!mounted) return;
+        const markers = L.markerClusterGroup();
+        sites.forEach((s) => {
+          const m = L.marker([s.lat, s.lng]);
+          m.bindPopup(`<div><strong>${s.name}</strong><div>AQI: ${s.pollution?.aqi ?? 'N/A'}</div></div>`);
+          markers.addLayer(m);
+        });
+        layerRef.current = markers;
+        map.addLayer(markers);
+      } catch (err) {
+        console.warn('MarkerCluster load failed, falling back to individual markers', err);
+      }
+    })();
+
+    return () => {
+      mounted = false;
+      if (layerRef.current) {
+        try { map.removeLayer(layerRef.current); } catch (e) { /* ignore */ }
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [map, JSON.stringify(sites.map((s) => `${s.lat},${s.lng}`))]);
+
+  return null;
+}
 
 function ResetViewOnMount({ center, zoom }: { center: [number, number]; zoom: number }) {
   const map = useMap();
@@ -49,6 +90,7 @@ export default function MapPage() {
   const q = query.trim().toLowerCase();
   const filteredSites = q ? sites.filter((s) => (s.name || '').toLowerCase().includes(q)) : sites;
   const center: [number, number] = [9.9208, 78.1210];
+  const [clustered, setClustered] = React.useState(true);
 
   // Mock realtime updates: adjust values periodically and broadcast via EventBus
   React.useEffect(() => {
@@ -183,6 +225,10 @@ export default function MapPage() {
             onChange={(e) => setQuery(e.target.value)}
             className="input w-full max-w-sm"
           />
+          <div className="ml-2 flex items-center gap-2">
+            <label className="text-xs text-muted-foreground">Cluster markers</label>
+            <input type="checkbox" checked={clustered} onChange={(e) => setClustered(e.target.checked)} />
+          </div>
           {query && (
             <button className="nav-pill" onClick={() => setQuery('')}>Clear</button>
           )}
@@ -195,6 +241,11 @@ export default function MapPage() {
               attribution='&copy; OpenStreetMap contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
+
+            {/* Marker clustering layer (uses leaflet.markercluster) */}
+            {clustered ? (
+              <ClusterLayer sites={filteredSites} />
+            ) : null}
 
             <LayersControl position="topright">
               <LayersControl.Overlay name="Traffic">
