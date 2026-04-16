@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, LayersControl, LayerGroup, CircleMarker, useMap } from 'react-leaflet';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import { pollutionData, wasteBins, predictionData } from '../data/cityData';
+import { pollutionData, wasteBins, predictionData } from '@/data/cityData';
 import { predictSites } from '../ml/predictor';
 import React from 'react';
 import { emitRealtimeUpdate, emitNotification } from '../lib/utils';
