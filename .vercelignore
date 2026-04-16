@@ -1,0 +1,9 @@
+data/
+public/data/
+QUESTION.md
+*.log
+dist/
+.env
+.env.*
+node_modules/
+/.git
