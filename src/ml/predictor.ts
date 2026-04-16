@@ -29,11 +29,11 @@ export async function predictSites(sites: any[]) {
     // Train a few epochs — small so it runs fast in-browser
     await model.fit(xT, yT, { epochs: 30, batchSize: Math.min(16, sites.length) });
 
-    const preds = model.predict(xT) as tf.Tensor;
-    const predData = Array.from(await preds.data());
+    const preds = model.predict(xT) as any;
+    const predData = Array.from(await preds.data()).map((v: any) => Number(v));
 
     // Convert back to AQI scale and attach a simple confidence estimate
-    const results = predData.map((v) => ({ predictedAqi: Math.max(0, Math.round(v * 200)), confidence: 0.6 + Math.random() * 0.4 }));
+    const results = predData.map((v: number) => ({ predictedAqi: Math.max(0, Math.round(v * 200)), confidence: 0.6 + Math.random() * 0.4 }));
 
     xT.dispose();
     yT.dispose();

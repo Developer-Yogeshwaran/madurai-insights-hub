@@ -63,6 +63,7 @@ export default function Header() {
             <Link to="/map" className="nav-pill inline-flex items-center gap-2">
               <MapPin className="w-3.5 h-3.5" /> Map
             </Link>
+            {/* Upload removed - reverting to pre-upload stage */}
             <span className="text-[10px] text-muted-foreground uppercase tracking-wider">AI Powered City Intelligence</span>
           </div>
           <h1 className="text-xl font-extrabold tracking-tight mt-1">Smart Madurai</h1>

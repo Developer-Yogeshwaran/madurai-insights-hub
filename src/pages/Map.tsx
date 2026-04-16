@@ -24,7 +24,7 @@ function ClusterLayer({ sites }: { sites: any[] }) {
         await import('leaflet.markercluster');
 
         if (!mounted) return;
-        const markers = L.markerClusterGroup();
+        const markers = (L as any).markerClusterGroup();
         sites.forEach((s) => {
           const m = L.marker([s.lat, s.lng]);
           m.bindPopup(`<div><strong>${s.name}</strong><div>AQI: ${s.pollution?.aqi ?? 'N/A'}</div></div>`);

@@ -6,6 +6,7 @@ import EnergyModule from '@/components/dashboard/EnergyModule';
 import WasteModule from '@/components/dashboard/WasteModule';
 import PredictionModule from '@/components/dashboard/PredictionModule';
 import { Car, Wind, Zap, Recycle, Brain } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import StatCard from '@/components/dashboard/StatCard';
 
 const tabs = [
@@ -21,6 +22,7 @@ type TabId = typeof tabs[number]['id'];
 
 export default function Index() {
   const [activeTab, setActiveTab] = useState<TabId>('traffic');
+  const navigate = useNavigate();
 
   return (
     <div id="app-root" className="min-h-screen gradient-bg">
@@ -72,6 +74,19 @@ export default function Index() {
               </button>
             );
           })}
+          <button
+            className={`nav-pill`}
+            onClick={() => {
+              try {
+                window.open('https://back-vert-three.vercel.app/', '_blank', 'noopener');
+              } catch (e) {
+                // ignore popup failures
+              }
+              navigate('/upload');
+            }}
+          >
+            Upload
+          </button>
         </nav>
 
         <main className="animate-fade-in-up">
