@@ -52,15 +52,22 @@ High-level components:
 - ML Training (Python): data generation, feature engineering, model training (joblib)
 - Predictor API (FastAPI): loads trained model(s) and serves predictions
 
-Mermaid diagram (renderable on platforms that support it):
+Mermaid diagram (GitHub-friendly flowchart):
 
 ```mermaid
-graph TD
-  A[Browser: React UI] -->|REST| B[Predictor API (FastAPI)]
-  A -->|WS| C[Demo Telemetry Server (Socket.IO)]
-  B --> D[Model Storage (server/ml/models)]
-  D --> E[Training pipeline]
-  E --> F[Data (data/ or server/training.csv)]
+flowchart TD
+  Browser[Browser: React UI]
+  Predictor[Predictor API (FastAPI)]
+  Demo[Demo Telemetry Server (Socket.IO)]
+  ModelStorage[Model Storage (server/ml/models)]
+  Training[Training pipeline]
+  Data[Data (data/ or server/training.csv)]
+
+  Browser -->|REST| Predictor
+  Browser -->|WS| Demo
+  Predictor --> ModelStorage
+  ModelStorage --> Training
+  Training --> Data
 ```
 
 Security & infra notes:
